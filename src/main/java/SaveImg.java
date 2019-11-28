@@ -28,4 +28,7 @@ public static void toFilesRGB(String path) throws IOException  //Saves separate 
      ImageIO.write(Engine.getSpectralChannels()[1],"png",new File(path+"B.png")); //saves B channel
       ImageIO.write(Engine.getSpectralChannels()[2],"png",new File(path+"R.png")); //saves R channel
 }
+
+
+    
 }

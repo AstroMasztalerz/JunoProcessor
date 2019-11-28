@@ -75,6 +75,9 @@ public float brightness=100;
         RadiusSlider = new javax.swing.JSlider();
         AmountLabel = new javax.swing.JTextField();
         RadiusLabel = new javax.swing.JTextField();
+        HelpFrame = new javax.swing.JFrame();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        HelpTextArea = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         LBL_TextArea = new javax.swing.JTextArea();
@@ -116,6 +119,8 @@ public float brightness=100;
         BatchOutputButton = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         BatchExecButton = new javax.swing.JMenuItem();
+        HelpMenu = new javax.swing.JMenu();
+        FAQButton = new javax.swing.JMenuItem();
 
         colorSliderFrame.setTitle("Color balance tool");
         colorSliderFrame.setResizable(false);
@@ -491,6 +496,27 @@ public float brightness=100;
                 .addComponent(ProcessingValuesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        HelpFrame.setSize(new java.awt.Dimension(600, 480));
+
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        HelpTextArea.setEditable(false);
+        HelpTextArea.setColumns(20);
+        HelpTextArea.setRows(5);
+        HelpTextArea.setText("FAQ:\n1) What are the supported file formats?\n- .PNG and .IMG with .LBL in PDS2 format for input, .PNG for output\n2) What are the processing functions and what do they do?\n-They're used to perform operations on RAW images to process them. They range from creating color composite images from monochrome images \n(RGB Combine) up to corrrecting contrast and gamma of the image or the color balance. It's best to play around with them to get a feeling for what works the best\nhowever the program does support pre-defined automatic adjustments such as auto contrast or auto color balance.\n3) How to conduct Batch processing?\n-Put all the files you want to process into a single folder. Go to Batch/setInputFolder and navigate to folder where your images are located. Click OK\nNow click setOutputFolder and navigate to folder where you want your output images to go. Remeber that for batch processing images have to be PNG format\n\n");
+        jScrollPane3.setViewportView(HelpTextArea);
+
+        javax.swing.GroupLayout HelpFrameLayout = new javax.swing.GroupLayout(HelpFrame.getContentPane());
+        HelpFrame.getContentPane().setLayout(HelpFrameLayout);
+        HelpFrameLayout.setHorizontalGroup(
+            HelpFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
+        );
+        HelpFrameLayout.setVerticalGroup(
+            HelpFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(38, 45, 48));
         setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
@@ -576,9 +602,9 @@ public float brightness=100;
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Green_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -590,6 +616,11 @@ public float brightness=100;
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(32, 32, 32))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(Red_Button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -598,12 +629,7 @@ public float brightness=100;
                 .addComponent(Blue_Button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RGB_Button)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(32, 32, 32))
+                .addGap(0, 466, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -832,6 +858,18 @@ public float brightness=100;
         BatchMenu.add(BatchExecButton);
 
         jMenuBar1.add(BatchMenu);
+
+        HelpMenu.setText("Help");
+
+        FAQButton.setText("Open FAQ");
+        FAQButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FAQButtonActionPerformed(evt);
+            }
+        });
+        HelpMenu.add(FAQButton);
+
+        jMenuBar1.add(HelpMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -1191,6 +1229,10 @@ SharpenAndDenoiseFrame.setVisible(true); //open frame for changing values
 
     private void SharpenAndDenoiseFrameComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_SharpenAndDenoiseFrameComponentResized
     }//GEN-LAST:event_SharpenAndDenoiseFrameComponentResized
+
+    private void FAQButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FAQButtonActionPerformed
+HelpFrame.setVisible(true);
+    }//GEN-LAST:event_FAQButtonActionPerformed
     static void setImagePrev(BufferedImage img)
     { 
      jLabel1.setIcon(new ImageIcon(Scalr.resize(img, Scalr.Method.SPEED, jLabel1.getHeight())));
@@ -1265,9 +1307,13 @@ SharpenAndDenoiseFrame.setVisible(true); //open frame for changing values
     private javax.swing.JFrame ContrastFrame;
     private javax.swing.JSlider ContrastSlider;
     private javax.swing.JMenuItem Denoise_Button;
+    private javax.swing.JMenuItem FAQButton;
     private javax.swing.JMenu File_Menu;
     private javax.swing.JSlider GSlider;
     public static javax.swing.JRadioButton Green_Button;
+    private javax.swing.JFrame HelpFrame;
+    private javax.swing.JMenu HelpMenu;
+    private javax.swing.JTextArea HelpTextArea;
     private javax.swing.JMenuItem IMGPathButton;
     private javax.swing.JTextArea LBL_TextArea;
     private javax.swing.JMenuItem LoadLBLButton;
@@ -1312,6 +1358,7 @@ SharpenAndDenoiseFrame.setVisible(true); //open frame for changing values
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
