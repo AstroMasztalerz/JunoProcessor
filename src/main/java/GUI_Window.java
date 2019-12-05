@@ -1,8 +1,11 @@
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -111,6 +114,7 @@ public float brightness=100;
         Reset_Button = new javax.swing.JMenuItem();
         SettingsMenu = new javax.swing.JMenu();
         IMGPathButton = new javax.swing.JMenuItem();
+        SetDefaultPathToIMGLoaderButton = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         CH4Checkbox = new javax.swing.JCheckBoxMenuItem();
         CH4_Aligment_Checkbox = new javax.swing.JCheckBoxMenuItem();
@@ -360,7 +364,6 @@ public float brightness=100;
         jMenuItem2.setText("jMenuItem2");
 
         SharpenAndDenoiseFrame.setTitle("Sharpening/Denoising parameter setup");
-        SharpenAndDenoiseFrame.setPreferredSize(new java.awt.Dimension(640, 480));
         SharpenAndDenoiseFrame.setResizable(false);
         SharpenAndDenoiseFrame.setSize(new java.awt.Dimension(400, 300));
         SharpenAndDenoiseFrame.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -802,6 +805,14 @@ public float brightness=100;
         });
         SettingsMenu.add(IMGPathButton);
 
+        SetDefaultPathToIMGLoaderButton.setText("Set Default Path to IMG Loader");
+        SetDefaultPathToIMGLoaderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SetDefaultPathToIMGLoaderButtonActionPerformed(evt);
+            }
+        });
+        SettingsMenu.add(SetDefaultPathToIMGLoaderButton);
+
         jMenu1.setText("CH4");
 
         CH4Checkbox.setText("CH4 Input");
@@ -1233,6 +1244,20 @@ SharpenAndDenoiseFrame.setVisible(true); //open frame for changing values
     private void FAQButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FAQButtonActionPerformed
 HelpFrame.setVisible(true);
     }//GEN-LAST:event_FAQButtonActionPerformed
+
+    private void SetDefaultPathToIMGLoaderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetDefaultPathToIMGLoaderButtonActionPerformed
+  ObjectOutputStream os;
+        try {    
+            os = new ObjectOutputStream(
+                    new BufferedOutputStream(new FileOutputStream("settings.stg")));
+        
+        
+         os.writeObject(new Settings(JOptionPane.showInputDialog("Please input path to IMG loader")));
+         os.close();        // TODO add your handling code here:
+         } catch (IOException ex) {
+            Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_SetDefaultPathToIMGLoaderButtonActionPerformed
     static void setImagePrev(BufferedImage img)
     { 
      jLabel1.setIcon(new ImageIcon(Scalr.resize(img, Scalr.Method.SPEED, jLabel1.getHeight())));
@@ -1278,8 +1303,20 @@ HelpFrame.setVisible(true);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI_Window().setVisible(true);
-             jLabel1.setText("AWAITING IMAGE LOADING");
+                try {
+                    new GUI_Window().setVisible(true);
+                    Settings stg; //defines settings object
+                    
+                    stg = Settings.loadSettings(); //loads the settings with path to img loader from a file at same location as app
+                    
+                    LoadImage.setPathToProcessorFolder(stg.getPathToIMGLoader()); //sets the path to IMGConverter from read-out settings
+                    //System.out.println(stg.getPathToIMGLoader());
+                    jLabel1.setText("AWAITING IMAGE LOADING");
+                } catch (IOException ex) {
+                    Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 
                 
@@ -1333,6 +1370,7 @@ HelpFrame.setVisible(true);
     private javax.swing.JMenuItem Reset_Button;
     private javax.swing.JMenuItem SaveButton;
     private javax.swing.JMenuItem SaveRGB;
+    private javax.swing.JMenuItem SetDefaultPathToIMGLoaderButton;
     private javax.swing.JMenuItem SetProcessingParamButton;
     private javax.swing.JMenu SettingsMenu;
     private javax.swing.JFrame SharpenAndDenoiseFrame;
