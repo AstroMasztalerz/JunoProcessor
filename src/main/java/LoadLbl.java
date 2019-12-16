@@ -63,8 +63,7 @@ public class LoadLbl {
             System.out.println(
                 "Error reading file '" 
                 + path + "'");                  
-            // Or we could just do this: 
-            // ex.printStackTrace();
+           
         }
         return null;
     }

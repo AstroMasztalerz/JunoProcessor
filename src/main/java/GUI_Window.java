@@ -640,8 +640,6 @@ public float brightness=100;
         jMenuBar1.setBackground(new java.awt.Color(38, 45, 48));
         jMenuBar1.setBorder(null);
 
-        File_Menu.setBackground(new java.awt.Color(22, 28, 31));
-        File_Menu.setForeground(new java.awt.Color(240, 240, 240));
         File_Menu.setText("File");
         File_Menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -688,8 +686,6 @@ public float brightness=100;
 
         jMenuBar1.add(File_Menu);
 
-        Processing_Menu.setBackground(new java.awt.Color(22, 28, 31));
-        Processing_Menu.setForeground(new java.awt.Color(240, 240, 240));
         Processing_Menu.setText("Processing");
         Processing_Menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -792,8 +788,6 @@ public float brightness=100;
 
         jMenuBar1.add(Processing_Menu);
 
-        SettingsMenu.setBackground(new java.awt.Color(22, 28, 31));
-        SettingsMenu.setForeground(new java.awt.Color(240, 240, 240));
         SettingsMenu.setText("Settings");
 
         IMGPathButton.setText("Set Path to IMG Loader");
@@ -836,8 +830,6 @@ public float brightness=100;
 
         jMenuBar1.add(SettingsMenu);
 
-        BatchMenu.setBackground(new java.awt.Color(22, 28, 31));
-        BatchMenu.setForeground(new java.awt.Color(240, 240, 240));
         BatchMenu.setText("Batch");
 
         BatchInputButton.setText("Set input path");
@@ -890,7 +882,7 @@ public float brightness=100;
     private void LoadPNGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadPNGButtonActionPerformed
 
         if(CH4Checkbox.isSelected()==false)
-        { System.out.println("CH4CHECKBOXFALSE");
+        { 
         jLabel1.setText(null);
          Blue_Button.setEnabled(false);
       Green_Button.setEnabled(false);
@@ -927,7 +919,7 @@ public float brightness=100;
       //  Blue_Button.setEnabled(false);
      // Green_Button.setEnabled(false);
      // Red_Button.setEnabled(false);
-        System.out.println("CH4CHECKBOXTRUE");
+        
       jLabel1.setText(null);
         int returnVal = fileChooser.showOpenDialog(this); //value for opening of file
     if (returnVal == JFileChooser.APPROVE_OPTION) { //if opening was OK
@@ -955,7 +947,7 @@ public float brightness=100;
   int returnVal = fileChooser.showOpenDialog(this);  //opens a file Chooser dialogue
     if (returnVal == JFileChooser.APPROVE_OPTION) { //if file opening is true
         File file = fileChooser.getSelectedFile();  //parses opened file into variable
-      System.out.println(file.getName()); //test print of file name
+     
          
             LBL_TextArea.setText(LoadLbl.read(file.getPath()));  //Sets LBL reading area text by using LoadLbl.read Method from file path
             LoadImage.setLBLPath(file.getAbsolutePath()); //sets Path to loaded label for image loader
@@ -963,15 +955,17 @@ public float brightness=100;
     }//GEN-LAST:event_LoadLBLButtonActionPerformed
 
     private void Denoise_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Denoise_ButtonActionPerformed
-      
+if (printNoImageError()==false)
+{
         try {
             Engine.denoise(Amount,radius);
         } catch (IOException ex) {
             Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Denoise_ButtonActionPerformed
-
+    }
     private void RGB_Combine_VariableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RGB_Combine_VariableActionPerformed
+        printNoImageError(); //prints a JOptionPane error if processing is undertaken without loading an image
         try {
             Engine.assembleRGB();
             RGB_Button.setEnabled(true);
@@ -983,15 +977,19 @@ public float brightness=100;
     }//GEN-LAST:event_RGB_Combine_VariableActionPerformed
 
     private void SharpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SharpenButtonActionPerformed
+if (printNoImageError()==false)
+{
         Engine.sharpen(Amount,radius);
+}
     }//GEN-LAST:event_SharpenButtonActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-        int returnVal = fileChooser.showSaveDialog(this);
+if (printNoImageError()==false)
+{int returnVal = fileChooser.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
             try {
                 String path=((fileChooser.getSelectedFile().getPath()));
-                System.out.println(path);
+                
                 SaveImg.toFile(path+".png");
             } catch (IOException ex) {
                 Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
@@ -999,7 +997,7 @@ public float brightness=100;
 
     }
     }//GEN-LAST:event_SaveButtonActionPerformed
-
+    }
     private void Reset_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reset_ButtonActionPerformed
         
         try {
@@ -1031,7 +1029,10 @@ Green_Button.setSelected(true);
     }//GEN-LAST:event_Reset_ButtonActionPerformed
 
     private void SaveRGBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveRGBActionPerformed
-           int returnVal = fileChooser.showSaveDialog(this);
+if (printNoImageError()==false)
+{
+        
+        int returnVal = fileChooser.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
             try {
                 String path=((fileChooser.getSelectedFile().getPath()));
@@ -1041,6 +1042,7 @@ Green_Button.setSelected(true);
                 Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
+}
     }//GEN-LAST:event_SaveRGBActionPerformed
 
     private void jPanel1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentResized
@@ -1066,7 +1068,7 @@ Green_Button.setSelected(true);
     }//GEN-LAST:event_Blue_ButtonActionPerformed
 
     private void Green_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Green_ButtonActionPerformed
-        System.out.println("Green performed");
+        
         BufferedImage temp=Engine.getSpectralChannels()[0];
         setImagePrev(temp); //sets image preview to currently selected image
         Engine.setTempDisp(temp); //passes the selected image to Engine
@@ -1075,7 +1077,7 @@ Green_Button.setSelected(true);
     }//GEN-LAST:event_Green_ButtonActionPerformed
 
     private void Red_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Red_ButtonActionPerformed
-        System.out.println("RedPerformed");
+    
         BufferedImage temp=Engine.getSpectralChannels()[2];
         setImagePrev(temp); //sets image preview to currently selected image
         Engine.setTempDisp(temp); //passes the selected image to Engine
@@ -1099,11 +1101,13 @@ Green_Button.setSelected(true);
     }//GEN-LAST:event_IMGPathButtonActionPerformed
 
     private void BalanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BalanceButtonActionPerformed
-      Engine.colourBalance();
+printNoImageError(); //prints a JOptionPane error if processing is undertaken without loading an image
+        Engine.colourBalance();
     }//GEN-LAST:event_BalanceButtonActionPerformed
 
     private void AutoStretchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoStretchButtonActionPerformed
-Engine.contrast();
+printNoImageError(); //prints a JOptionPane error if processing is undertaken without loading an image
+        Engine.contrast();
     }//GEN-LAST:event_AutoStretchButtonActionPerformed
 
     private void BatchInputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatchInputButtonActionPerformed
@@ -1113,7 +1117,6 @@ Engine.contrast();
         File file = fileChooser.getSelectedFile(); //Creates file from path
         inputPathBatch=(file.getAbsolutePath()); //sets path to batch input directory
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY); //back to files only opening
-            System.out.println(inputPathBatch);
     } 
     }//GEN-LAST:event_BatchInputButtonActionPerformed
 
@@ -1124,14 +1127,13 @@ Engine.contrast();
         File file = fileChooser.getSelectedFile(); //Creates file from path
         outputPathBatch=(file.getAbsolutePath()); //sets path to batch input directory
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY); //back to files only opening
-                System.out.println(outputPathBatch);
     } 
     }//GEN-LAST:event_BatchOutputButtonActionPerformed
 
     private void BatchExecButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatchExecButtonActionPerformed
         try {
             Engine.batchProcessRAWPNGtoRGBComposites(inputPathBatch, outputPathBatch);  //execute Batch from Engine
-            System.out.println("EXEC");
+           
         } catch (IOException ex) {
             Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1145,8 +1147,9 @@ Engine.contrast();
     }//GEN-LAST:event_CH4_Aligment_CheckboxActionPerformed
 
     private void ManualColorBalanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManualColorBalanceButtonActionPerformed
-colorSliderFrame.setVisible(true);
-        
+if (printNoImageError()==false) //prints a JOptionPane error if processing is undertaken without loading an image
+{ colorSliderFrame.setVisible(true);
+}  
     }//GEN-LAST:event_ManualColorBalanceButtonActionPerformed
 
     private void Processing_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Processing_MenuActionPerformed
@@ -1170,8 +1173,11 @@ Engine.colourBalance(R/100, G/100, B/100);
     }//GEN-LAST:event_Preview_ColourBalanceButtonActionPerformed
 
     private void ManualContrastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManualContrastButtonActionPerformed
-ContrastFrame.setVisible(true);
+if (printNoImageError()==false)
+{
+        ContrastFrame.setVisible(true);
   Engine.uncontrasted=Engine.copyImage(Engine.tempDisp);  //copy reference to uncontrasted so work can be done
+}
     }//GEN-LAST:event_ManualContrastButtonActionPerformed
 
     private void Apply_ColourBalanceButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Apply_ColourBalanceButton1ActionPerformed
@@ -1191,9 +1197,7 @@ brightness=BrightnessSlider.getValue();
 
     private void Preview_ContrastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Preview_ContrastButtonActionPerformed
 Engine.contrast(contrast/100, brightness/100);  //apply contrast and brightness with scaling to float
-System.out.println(contrast/100);
-System.out.println(brightness/100);
-System.out.println("Contrasted");
+
     }//GEN-LAST:event_Preview_ContrastButtonActionPerformed
 
     private void Apply_ContrastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Apply_ContrastButtonActionPerformed
@@ -1204,8 +1208,12 @@ Engine.uncontrasted=Engine.copyImage(Engine.tempDisp);
     }//GEN-LAST:event_Apply_ContrastButtonActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       Engine.WriteTextOnImg( Engine.tempDisp);
+      if (Engine.lbl!="" && (Engine.lbl)!=null)  //if there is a label to read EXIF from
+      {
+        Engine.WriteTextOnImg( Engine.tempDisp);
        GUI_Window.setImagePrev(Engine.tempDisp);
+      }
+      else JOptionPane.showMessageDialog(null, "There's no LBL file associated with the image. Please load LBL from File/LoadLBL", "WARNING",0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void RadiusLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadiusLabelActionPerformed
@@ -1230,8 +1238,9 @@ Engine.uncontrasted=Engine.copyImage(Engine.tempDisp);
 SharpenAndDenoiseFrame.setVisible(false);    }//GEN-LAST:event_ApplyProcessingParamButtonActionPerformed
 
     private void SetProcessingParamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetProcessingParamButtonActionPerformed
-//SharpenAndDenoiseFrame.setSize(600,400); //set size
+if (printNoImageError()==false) {//SharpenAndDenoiseFrame.setSize(600,400); //set size
 SharpenAndDenoiseFrame.setVisible(true); //open frame for changing values
+}
     }//GEN-LAST:event_SetProcessingParamButtonActionPerformed
 
     private void ProcessingValuesPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ProcessingValuesPanelComponentResized
@@ -1310,7 +1319,7 @@ HelpFrame.setVisible(true);
                     stg = Settings.loadSettings(); //loads the settings with path to img loader from a file at same location as app
                     
                     LoadImage.setPathToProcessorFolder(stg.getPathToIMGLoader()); //sets the path to IMGConverter from read-out settings
-                    //System.out.println(stg.getPathToIMGLoader());
+                   
                     jLabel1.setText("AWAITING IMAGE LOADING");
                 } catch (IOException ex) {
                     Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
@@ -1323,7 +1332,15 @@ HelpFrame.setVisible(true);
             }
         });
     }
-
+    private boolean printNoImageError() //shows a JOption error pane if there's no image loaded yet processing is undertaken
+    {
+        if (Engine.tempDisp==null)
+                {
+                    JOptionPane.showMessageDialog(null, "There is no image loaded! You can not perform this action without loading an image first!", "WARNING",0);
+                    return true;
+                }
+    else return false;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AmountLabel;
     private javax.swing.JSlider AmountSlider;

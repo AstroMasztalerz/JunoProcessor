@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
  
  */
 public class Engine {
-
+    
     public static BufferedImage unbalanced;
     public static BufferedImage uncontrasted;
     public static BufferedImage tempDisp;
@@ -35,7 +35,7 @@ public class Engine {
 
     static void setTempDisp(BufferedImage tempDisp) {
         Engine.tempDisp = tempDisp;
-        System.out.println(tempDisp.getWidth());
+      
     }
 
     static BufferedImage getTempDisp() {
@@ -91,7 +91,6 @@ public class Engine {
             if (stack.isEmpty() == false) {
                 //gets next Image from stack
                 R.drawImage(stack.pop().getImg(), 0, ((RAW.getHeight() / 3) - currentHeight), null); //add next framelet to Blue image at proper height
-                //System.out.println("Moved while loading");
             }
             currentHeight += 114; //move by next 126 pixels and overlap of 2 pix. 2 Pixel overlap is caused by a overlap between consecutive image framelets from JunoCam. Each framelet is 128 pixels high, but 2 pixel rows cover the same imaging region
 
@@ -101,7 +100,6 @@ public class Engine {
         tempDisp = spectralChannels[0];
         Engine.tempDisp = output[0];
         GUI_Window.setImagePrev(output[0]); //sets the resulting Green channel image to preview window
-        System.out.println("OUTPUT");
         return output;
 
     }
@@ -174,7 +172,7 @@ public class Engine {
     }
 
     public static void colourBalance(float R, float G, float B) {
-        System.out.println("RGBBALANCE");
+       
         RGBAdjustFilter Adjust = new RGBAdjustFilter(R, G, B);
         Adjust.filter(unbalanced, tempDisp);
         GUI_Window.setImagePrev(tempDisp); //updates temp disp after blurring
@@ -239,7 +237,6 @@ public class Engine {
     public static void batchProcessRAWPNGtoRGBComposites(String inputPath, String outputPath) throws IOException {
         File folder = new File(inputPath);
         File[] listOfFiles = folder.listFiles();
-       // System.out.println(listOfFiles[2].getName());
         BufferedImage[] outputImages = new BufferedImage[listOfFiles.length];  //list of BufferedImages for processed outputs
         for (int i = 0; i < listOfFiles.length; i++) //iterate over all files in folder
         {
@@ -327,7 +324,6 @@ public class Engine {
             if (stack.isEmpty() == false) {
                 //gets next Image from stack
                 R.drawImage(stack.pop().getImg(), 0, ((RAW.getHeight() / 3) - currentHeight), null); //add next framelet to Blue image at proper height
-                //System.out.println("Moved while loading");
             }
             currentHeight += 114; //move by next 126 pixels and overlap of 2 pix. 2 Pixel overlap is caused by a overlap between consecutive image framelets from JunoCam. Each framelet is 128 pixels high, but 2 pixel rows cover the same imaging region
 

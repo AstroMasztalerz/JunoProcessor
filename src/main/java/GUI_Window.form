@@ -641,12 +641,6 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="File_Menu">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="1f" green="1c" red="16" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <Events>
@@ -695,12 +689,6 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Processing_Menu">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="1f" green="1c" red="16" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Processing"/>
           </Properties>
           <Events>
@@ -808,12 +796,6 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="SettingsMenu">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="1f" green="1c" red="16" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Settings"/>
           </Properties>
           <SubComponents>
@@ -868,12 +850,6 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="BatchMenu">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="1f" green="1c" red="16" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Batch"/>
           </Properties>
           <SubComponents>

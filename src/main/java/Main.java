@@ -24,18 +24,6 @@ public class Main {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-    //new GUI();
-    
-//    imageForStack Z= new imageForStack("Blue", 600,400,null);
-//    imageForStack F= new imageForStack("Red", 942,445,null);
-//    ImageStack is=new ImageStack(Z);
-//    System.out.println(Z.getX());
-//    is.push(F);
-//    
-//    System.out.println(is.pop().getX());
-//    
-//    System.out.println(is.pop().getX());
-   System.out.println("RUNNING"); 
     new GUI_Window().setVisible(true);
     new Engine();
     
