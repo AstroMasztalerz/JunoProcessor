@@ -1,4 +1,5 @@
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
@@ -125,6 +126,8 @@ public float brightness=100;
         BatchExecButton = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
         FAQButton = new javax.swing.JMenuItem();
+        READMEBUTTON = new javax.swing.JMenuItem();
+        ManualOPENButton = new javax.swing.JMenuItem();
 
         colorSliderFrame.setTitle("Color balance tool");
         colorSliderFrame.setResizable(false);
@@ -872,6 +875,22 @@ public float brightness=100;
         });
         HelpMenu.add(FAQButton);
 
+        READMEBUTTON.setText("Open README");
+        READMEBUTTON.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                READMEBUTTONActionPerformed(evt);
+            }
+        });
+        HelpMenu.add(READMEBUTTON);
+
+        ManualOPENButton.setText("Open manual pdf");
+        ManualOPENButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ManualOPENButtonActionPerformed(evt);
+            }
+        });
+        HelpMenu.add(ManualOPENButton);
+
         jMenuBar1.add(HelpMenu);
 
         setJMenuBar(jMenuBar1);
@@ -1132,8 +1151,11 @@ printNoImageError(); //prints a JOptionPane error if processing is undertaken wi
 
     private void BatchExecButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatchExecButtonActionPerformed
         try {
+            if(inputPathBatch!=null && !"".equals(inputPathBatch)&&outputPathBatch!=null && !"".equals(outputPathBatch)) //if the paths are OK
+            {
             Engine.batchProcessRAWPNGtoRGBComposites(inputPathBatch, outputPathBatch);  //execute Batch from Engine
-           
+            }
+            else JOptionPane.showMessageDialog(null, "No input/output path for batch. Please set the paths up.","WARNING",0); //error print for no paths
         } catch (IOException ex) {
             Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1267,6 +1289,24 @@ HelpFrame.setVisible(true);
             Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
          }
     }//GEN-LAST:event_SetDefaultPathToIMGLoaderButtonActionPerformed
+
+    private void READMEBUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_READMEBUTTONActionPerformed
+         Desktop dt = Desktop.getDesktop();
+        try {
+            dt.open(new File("README.txt"));
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_READMEBUTTONActionPerformed
+
+    private void ManualOPENButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManualOPENButtonActionPerformed
+        Desktop dt = Desktop.getDesktop();
+        try {
+            dt.open(new File("Manual.pdf"));
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ManualOPENButtonActionPerformed
     static void setImagePrev(BufferedImage img)
     { 
      jLabel1.setIcon(new ImageIcon(Scalr.resize(img, Scalr.Method.SPEED, jLabel1.getHeight())));
@@ -1374,10 +1414,12 @@ HelpFrame.setVisible(true);
     private javax.swing.JMenuItem LoadPNGButton;
     private javax.swing.JMenuItem ManualColorBalanceButton;
     private javax.swing.JMenuItem ManualContrastButton;
+    private javax.swing.JMenuItem ManualOPENButton;
     private javax.swing.JButton Preview_ColourBalanceButton;
     private javax.swing.JButton Preview_ContrastButton;
     private javax.swing.JPanel ProcessingValuesPanel;
     private javax.swing.JMenu Processing_Menu;
+    private javax.swing.JMenuItem READMEBUTTON;
     public static javax.swing.JRadioButton RGB_Button;
     private javax.swing.JMenuItem RGB_Combine_Variable;
     private javax.swing.JSlider RSlider;
